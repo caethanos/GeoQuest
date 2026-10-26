@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f2">
+  <meta name="description" content="Treine Geografia do Brasil com missões, desafios e repetição espaçada.">
+  <title>GeoQuest — Geografia do Brasil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="GeoQuest início"><span class="brand-mark">G</span><span>geo<span class="brand-accent">quest</span></span></a>
+      <div class="header-meta"><span class="chapter-tag"><span class="tag-dot"></span> GEOGRAFIA · BRASIL</span><button class="icon-button" id="soundToggle" aria-label="Alternar efeitos sonoros" title="Efeitos sonoros">♫</button></div>
+    </header>
+
+    <main>
+      <section class="welcome" id="welcome">
+        <div class="welcome-copy"><p class="eyebrow">SUA PRÓXIMA MISSÃO</p><h1>Desvende a indústria<br>brasileira<span class="period">.</span></h1><p class="welcome-text">Uma jornada rápida para dominar o capítulo <strong>“Fabricado no Brasil”</strong>. Aprenda no seu ritmo, suba de nível e conquiste cada conceito.</p>
+          <div class="welcome-actions"><button class="button button-primary" id="startButton">Começar jornada <span>→</span></button><button class="text-button" id="continueButton" hidden>Continuar de onde parei</button></div>
+          <div class="promise"><span class="promise-icon">✦</span><span>Questões curtas · Feedback na hora · Progresso salvo</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="globe"><div class="globe-grid"></div><span class="land land-a"></span><span class="land land-b"></span><span class="land land-c"></span><span class="globe-pin">✦</span></div><div class="float-card card-factory"><span class="mini-icon">⌂</span><span><b>Indústria</b><small>em transformação</small></span></div><div class="float-card card-streak"><span class="streak-icon">⚡</span><span><b id="heroStreak">0 dias</b><small>sequência de estudo</small></span></div><div class="art-label">CONHECIMENTO EM MOVIMENTO</div></div>
+      </section>
+
+      <section class="dashboard" aria-label="Seu progresso">
+        <div class="dashboard-heading"><div><p class="eyebrow">PAINEL DO EXPLORADOR</p><h2>Sua jornada</h2></div><button id="resetButton" class="reset-button" title="Apagar seu progresso e recomeçar">↻ <span>Recomeçar</span></button></div>
+        <div class="stats-grid">
+          <article class="stat-card level-card"><div class="stat-icon purple">✧</div><div class="stat-content"><span class="stat-label">NÍVEL ATUAL</span><strong id="levelValue">1</strong><span class="stat-caption" id="levelName">Explorador</span></div><div class="level-progress"><div class="level-track"><span id="xpBar"></span></div><small><span id="xpValue">0</span>/100 XP</small></div></article>
+          <article class="stat-card"><div class="stat-icon orange">⚡</div><div class="stat-content"><span class="stat-label">SEQUÊNCIA</span><strong><span id="streakValue">0</span> <small>dias</small></strong><span class="stat-caption">Continue no ritmo!</span></div><span class="stat-decoration">✦</span></article>
+          <article class="stat-card"><div class="stat-icon green">✓</div><div class="stat-content"><span class="stat-label">DOMÍNIO</span><strong><span id="masteredValue">0</span><small> / 30</small></strong><span class="stat-caption">conceitos dominados</span></div><div class="mastery-ring" id="masteryRing"><span id="masteryPercent">0%</span></div></article>
+          <article class="stat-card"><div class="stat-icon blue">▤</div><div class="stat-content"><span class="stat-label">REVISÃO</span><strong id="reviewValue">0</strong><span class="stat-caption">na fila espaçada</span></div><span class="review-spark">⌁</span></article>
+        </div>
+      </section>
+
+      <section class="game-area" id="gameArea" hidden>
+        <div class="game-topline"><div><p class="eyebrow" id="missionLabel">MISSÃO 01 · FUNDAMENTOS</p><h2 id="gameTitle">Vamos começar!</h2></div><button class="quit-button" id="quitButton">Sair da missão <span>×</span></button></div>
+        <div class="game-progress"><div class="progress-label"><span id="progressText">Questão 1 de 30</span><span id="progressPercent">3%</span></div><div class="progress-track"><span id="questionProgress"></span></div></div>
+        <article class="question-card" id="questionCard"><div class="question-meta"><span class="question-number" id="questionNumber">01</span><span class="question-topic" id="questionTopic">ESTRUTURA PRODUTIVA</span><span class="points-badge">✦ +10 XP</span></div><h3 id="questionText"></h3><div class="answer-list" id="answerList" role="group" aria-label="Alternativas"></div><div class="feedback" id="feedback" aria-live="polite" hidden></div><div class="question-footer"><span class="hint-label">ESCOLHA UMA RESPOSTA PARA CONTINUAR</span><span class="keyboard-hint">1 – 4</span></div></article>
+        <div class="game-note"><span>✧</span> Errou? Sem problema. A questão volta mais tarde para você fixar o conteúdo.</div>
+      </section>
+
+      <section class="completion" id="completion" hidden><div class="completion-icon">✦</div><p class="eyebrow">MISSÃO CUMPRIDA</p><h2>Você dominou<br>o Brasil industrial<span class="period">.</span></h2><p id="completionText">Cada conceito foi revisado e conquistado. Excelente trabalho!</p><div class="completion-stats"><div><strong id="finalMastered">30</strong><span>conceitos dominados</span></div><div><strong id="finalXP">0</strong><span>XP conquistados</span></div><div><strong id="finalAccuracy">0%</strong><span>acerto na primeira</span></div></div><button class="button button-primary" id="againButton">Revisar jornada <span>→</span></button></section>
+    </main>
+    <footer><span>GEOQUEST <span class="footer-dot">·</span> GEOGRAFIA DO BRASIL</span><span>Aprender é uma jornada. <b>Vá mais longe.</b></span></footer>
+  </div>
+  <script src="questions.js"></script><script src="app.js"></script>
+</body>
+</html>
