@@ -4,7 +4,9 @@
   const fresh=()=>({mastered:[],firstCorrect:[],queue:[],attempts:0,xp:0,level:1,streak:0,lastStudy:null,active:false,complete:false});
   let state=load(), current=null, selected=false, sound=true;
   function load(){try{const saved=JSON.parse(localStorage.getItem(KEY));return saved?{...fresh(),...saved}:fresh()}catch{return fresh()}}
-  function save(){localStorage.setItem(KEY,JSON.stringify(state));renderStats()}
+  // O jogo também precisa funcionar quando o navegador bloqueia o armazenamento local
+  // (por exemplo, em alguns modos privados ou ao abrir o HTML como arquivo).
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}renderStats()}
   const today=()=>new Date().toLocaleDateString('sv-SE');
   function recordDay(){const t=today();if(state.lastStudy!==t){const y=new Date();y.setDate(y.getDate()-1);state.streak=state.lastStudy===y.toLocaleDateString('sv-SE')?state.streak+1:1;state.lastStudy=t}}
   function renderStats(){const mastered=state.mastered.length,pct=Math.round(mastered/QUESTIONS.length*100);$('masteredValue').textContent=mastered;$('masteryPercent').textContent=pct+'%';$('masteryRing').style.background=`conic-gradient(#8fc566 ${pct*3.6}deg,#eef1ea 0deg)`;$('reviewValue').textContent=state.queue.length;$('streakValue').textContent=state.streak;$('heroStreak').textContent=state.streak+' '+(state.streak===1?'dia':'dias');$('levelValue').textContent=state.level;$('levelName').textContent=state.level>=5?'Mestre industrial':state.level>=3?'Especialista':state.level>=2?'Pesquisador':'Explorador';$('xpValue').textContent=state.xp%100;$('xpBar').style.width=(state.xp%100)+'%';$('continueButton').hidden=!(state.active&&!state.complete);$('startButton').textContent=state.mastered.length?'Continuar jornada →':'Começar jornada →'}
@@ -29,7 +31,7 @@
   }
   function complete(){state.active=false;state.complete=true;save();showCompletion()}
   function showCompletion(){$('gameArea').hidden=true;$('welcome').hidden=true;$('dashboard').hidden=true;$('completion').hidden=false;$('finalMastered').textContent=state.mastered.length;$('finalXP').textContent=state.xp;$('finalAccuracy').textContent=(state.attempts?Math.round(state.firstCorrect.length/QUESTIONS.length*100):100)+'%';window.scrollTo({top:0,behavior:'smooth'})}
-  function reset(){if(!confirm('Apagar seu progresso e recomeçar do início?'))return;localStorage.removeItem(KEY);state=fresh();$('completion').hidden=true;$('gameArea').hidden=true;$('welcome').hidden=false;$('dashboard').hidden=false;renderStats()}
+  function reset(){if(!confirm('Apagar seu progresso e recomeçar do início?'))return;try{localStorage.removeItem(KEY)}catch{}state=fresh();$('completion').hidden=true;$('gameArea').hidden=true;$('welcome').hidden=false;$('dashboard').hidden=false;renderStats()}
   function beep(freq){try{const ctx=new(window.AudioContext||window.webkitAudioContext)(),o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(.04,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.14);o.start();o.stop(ctx.currentTime+.14)}catch{}}
   $('startButton').addEventListener('click',start);$('continueButton').addEventListener('click',start);$('againButton').addEventListener('click',reset);$('resetButton').addEventListener('click',reset);$('quitButton').addEventListener('click',()=>{state.active=false;save();$('gameArea').hidden=true;$('welcome').hidden=false;$('dashboard').hidden=false;window.scrollTo({top:0,behavior:'smooth'})});$('soundToggle').addEventListener('click',e=>{sound=!sound;e.currentTarget.style.opacity=sound?'1':'.4';e.currentTarget.setAttribute('aria-label',sound?'Desativar efeitos sonoros':'Ativar efeitos sonoros')});document.addEventListener('keydown',e=>{if($('gameArea').hidden||selected)return;const n=Number(e.key);if(n>=1&&n<=4)answer(n-1)});renderStats();
 })();
