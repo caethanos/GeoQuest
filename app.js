@@ -1,5 +1,5 @@
 (() => {
-  const KEY='geoquest-industria-br-v1';
+  const KEY='geoquest-ne-unidade-8-v1';
   const $=id=>document.getElementById(id);
   const fresh=()=>({mastered:[],firstCorrect:[],queue:[],attempts:0,xp:0,level:1,streak:0,lastStudy:null,active:false,complete:false});
   let state=load(), current=null, selected=false, sound=true;
@@ -9,7 +9,7 @@
   function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}renderStats()}
   const today=()=>new Date().toLocaleDateString('sv-SE');
   function recordDay(){const t=today();if(state.lastStudy!==t){const y=new Date();y.setDate(y.getDate()-1);state.streak=state.lastStudy===y.toLocaleDateString('sv-SE')?state.streak+1:1;state.lastStudy=t}}
-  function renderStats(){const mastered=state.mastered.length,pct=Math.round(mastered/QUESTIONS.length*100);$('masteredValue').textContent=mastered;$('masteryPercent').textContent=pct+'%';$('masteryRing').style.background=`conic-gradient(#8fc566 ${pct*3.6}deg,#eef1ea 0deg)`;$('reviewValue').textContent=state.queue.length;$('streakValue').textContent=state.streak;$('heroStreak').textContent=state.streak+' '+(state.streak===1?'dia':'dias');$('levelValue').textContent=state.level;$('levelName').textContent=state.level>=5?'Mestre industrial':state.level>=3?'Especialista':state.level>=2?'Pesquisador':'Explorador';$('xpValue').textContent=state.xp%100;$('xpBar').style.width=(state.xp%100)+'%';$('continueButton').hidden=!(state.active&&!state.complete);$('startButton').textContent=state.mastered.length?'Continuar jornada →':'Começar jornada →'}
+  function renderStats(){const mastered=state.mastered.length,pct=Math.round(mastered/QUESTIONS.length*100);state.level=Math.floor(state.xp/100)+1;$('masteredValue').textContent=mastered;$('masteryTotal').textContent=QUESTIONS.length;$('masteryPercent').textContent=pct+'%';$('masteryRing').style.background=`conic-gradient(#8fc566 ${pct*3.6}deg,#eef1ea 0deg)`;$('reviewValue').textContent=state.queue.length;$('streakValue').textContent=state.streak;$('heroStreak').textContent=state.streak+' '+(state.streak===1?'dia':'dias');$('levelValue').textContent=state.level;$('levelName').textContent=state.level>=5?'Mestre regional':state.level>=3?'Especialista':state.level>=2?'Pesquisador':'Explorador';$('xpValue').textContent=state.xp%100;$('xpBar').style.width=(state.xp%100)+'%';$('continueButton').hidden=!(state.active&&!state.complete);$('startButton').textContent=state.mastered.length?'Continuar jornada →':'Começar jornada →'}
   function start(){if(state.complete){showCompletion();return}state.active=true;save();$('welcome').hidden=true;$('dashboard').hidden=true;$('gameArea').hidden=false;$('completion').hidden=true;nextQuestion()}
   function nextQuestion(){selected=false;let itemIndex=-1,queueItem=null;
     // Review items become eligible three answered turns after the miss. If the base set is exhausted, the earliest item is presented.

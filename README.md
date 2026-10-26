@@ -1,25 +1,27 @@
-# GeoQuest · Geografia do Brasil
+# GeoQuest · Unidade 8: Nordeste
 
-Aplicativo de estudo gamificado sobre o capítulo **“Fabricado no Brasil”**. O projeto é estático: HTML, CSS e JavaScript, sem servidor, conta de usuário ou etapa de build. Pode ser publicado diretamente pelo GitHub Pages ou Netlify.
+Aplicativo de estudo gamificado para a Unidade 8, **“Um Retrato do Nordeste do Brasil”**. O banco contém 32 questões autorais sobre população, ocupação histórica, migrações, relevo, hidrografia, clima, vegetação e sub-regiões.
+
+O projeto é estático: HTML, CSS e JavaScript, sem servidor, conta de usuário ou etapa de build. Pode ser publicado diretamente no GitHub Pages ou Netlify.
 
 ## Arquivos
 
 - `index.html` — página e interface do jogo.
 - `styles.css` — layout responsivo para celular e computador.
-- `questions.js` — banco autoral de 30 questões, com explicações.
+- `questions.js` — 32 questões com gabarito e explicações.
 - `app.js` — regras do jogo, progresso, XP e repetição espaçada.
-- `netlify.toml` — configuração para publicação no Netlify.
+- `netlify.toml` — configuração de publicação no Netlify.
 
 ## Como funciona
 
 - O aluno responde uma questão por vez e recebe correção comentada na hora.
 - Cada acerto vale 10 XP; uma resposta incorreta vale 3 XP pela tentativa.
 - Questões erradas voltam à fila depois de três respostas. As alternativas são reordenadas nas revisões.
-- O aluno conclui ao dominar os 30 conceitos e esvaziar a fila de revisão.
-- XP, nível, sequência diária e progresso ficam salvos no armazenamento local do navegador. O progresso é específico daquele navegador e dispositivo.
-- O botão **Recomeçar** apaga o progresso local.
+- A jornada termina depois de dominar os 32 conceitos e concluir a fila de revisão.
+- XP, nível, sequência diária e progresso ficam salvos no navegador. O progresso é específico daquele navegador e dispositivo.
+- **Recomeçar** apaga o progresso desta edição da Unidade 8.
 
-O banco de questões foi escrito para cobrir os tópicos descritos no briefing e não reproduz trechos do material didático. Confira os enunciados com a edição usada pela turma antes de distribuir como avaliação oficial.
+As questões foram elaboradas a partir dos tópicos da Unidade 8 indicados no briefing. O PDF fornecido é uma digitalização; confira os enunciados com a edição usada pela turma antes de usar como avaliação oficial.
 
 ## Publicar no GitHub
 
@@ -33,12 +35,12 @@ O banco de questões foi escrito para cobrir os tópicos descritos no briefing e
 2. No Netlify, escolha **Add new site → Import an existing project** e conecte o repositório.
 3. O Netlify detecta o `netlify.toml`. Use `main` como branch de produção e publique.
 
-Também é possível arrastar a pasta para o deploy manual do Netlify. Como o site não tem processo de build, não é necessário comando de build nem diretório `dist`.
+Também é possível arrastar a pasta extraída para o deploy manual do Netlify. Envie **todos** os arquivos juntos, incluindo `app.js` e `questions.js`. Não é necessário comando de build nem diretório `dist`.
 
 ## Atualizar o banco
 
-Edite `questions.js`. Cada questão tem `topic`, `q`, quatro alternativas em `options`, o índice da resposta certa em `answer` (começa em zero) e uma explicação em `explain`. Mantenha quatro alternativas por questão para que os atalhos de teclado e a interface permaneçam coerentes.
+Edite `questions.js`. Cada questão tem `topic`, `q`, quatro alternativas em `options`, o índice da resposta certa em `answer` (começa em zero) e uma explicação em `explain`.
 
-## Privacidade e limites
+## Privacidade
 
-O app não coleta respostas nem possui backend. O progresso é armazenado somente no navegador. A fonte tipográfica vem do Google Fonts; se estiver offline, o site usa fontes locais genéricas. A persistência não sincroniza entre dispositivos nem navegadores.
+O app não coleta respostas nem possui backend. O progresso é armazenado somente no navegador e não sincroniza entre dispositivos. As fontes tipográficas são carregadas do Google Fonts; se estiver offline, o site usa fontes genéricas locais.
